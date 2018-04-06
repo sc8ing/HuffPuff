@@ -1,15 +1,11 @@
-public interface HuffTree extends Comparable<HuffTree> {
-	public HuffTree getLeft();
-	public HuffTree getRight();
-	public char getSymbol();
-	public int getValue();
+public interface HuffTree<T> extends Comparable<HuffTree<T>> {
+	public HuffTree<T> getLeft();
+	public HuffTree<T> getRight();
+
+	public T getSymbol();
 	public int getWeight();
 
-	public void setLeft(HuffTree t);
-	public void setRight(HuffTree t);
-	public void setSymbol(char s);
-	public void setValue(int v);
-
-	public int compareTo(HuffTree oth);
+	public boolean isLeaf();
+	public int compareTo(HuffTree<T> oth);
 	public String toString();
 }

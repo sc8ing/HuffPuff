@@ -1,47 +1,38 @@
-public class HuffTreeC implements HuffTree {
+public class HuffTreeC<T> implements HuffTree<T> {
 	private HuffTree left;
 	private HuffTree right;
-	private char symbol;
-	private int value; // values are essentially the frequency
-	private int order;
+	private T symbol;
+	private int weight;
 
-	public HuffTreeC(HuffTree l, HuffTree r, char s, int f) {
+	public HuffTreeC(HuffTree l, HuffTree r, T s, int w) {
 		left = l;
 		right = r;
 		symbol = s;
-		value = f;
+		weight = w;
 	}
+	// for non-leaf nodes
 	public HuffTreeC(HuffTree l, HuffTree r) {
 		left = l;
 		right = r;
-		value = 0; // need this for getWeight()
+		weight = l.getWeight() + r.getWeight();
 	}
 
 	public HuffTree getLeft() { return left; }
 	public HuffTree getRight() { return right; }
-	public char getSymbol() { return symbol; }
-	public int getValue() { return value; }
-	public int getWeight() {
-		int w = value;
-		if (left != null) w += left.getWeight();
-		if (right != null) w += right.getWeight();
-		return w;
-	}
+	public T getSymbol() { return symbol; }
+	public int getWeight() { return weight; }
 
-	public void setLeft(HuffTree t) { left = t; }
-	public void setRight(HuffTree t) { right = t; }
-	public void setSymbol(char s) { symbol = s; }
-	public void setValue(int f) { value = f; }
-
+	public boolean isLeaf() { return getLeft() == null && getRight() == null; }
 	public int compareTo(HuffTree oth) {
 		if (getWeight() > oth.getWeight()) return 1;
 		if (getWeight() < oth.getWeight()) return -1;
 		return 0;
 	}
 	public String toString() {
-		String s = "{" + ((value == 0) ? "innerNode" : symbol) + ", " + getWeight() + "}";
-		if (getLeft() != null) s += "L(" + getWeight() + "):" + getLeft().toString();
-		if (getRight() != null) s += "R(" + getWeight() + "):" + getRight().toString();
-		return s;
+		if (isLeaf())
+			return new StringBuilder("{" + getSymbol() + ", " + getWeight() + "}").toString();
+
+		return new StringBuilder("{" + "[inner node], " + getWeight() +
+								 "L(" + getLeft() + ") R(" + getRight() + ")").toString();
 	}
 }
