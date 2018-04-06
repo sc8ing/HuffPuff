@@ -59,10 +59,8 @@ public class Huff {
 		BinaryOut bO = io.openBinaryOutputFile();
 		bO.write(SIGNATURE); 
 		bO.write(fT.size());
-		l("fT.size(): " + fT.size());
 
 		for (char ch : fT.keySet()) {
-			l("writing " + ch + " as " + fT.get(ch));
 			bO.write(ch);
 			bO.write(fT.get(ch));
 		}
@@ -72,7 +70,6 @@ public class Huff {
 			inputFile = io.openInputFile(args[0]);
 			while ((c = inputFile.read()) != -1) {
 				ShortenedBinary binCode = binCodes.get((char) c);
-				l("writing " + (char) c + " as " + binCode);
 				bO.write(binCode.getValue(), binCode.getLength());
 			}
 			inputFile.close();

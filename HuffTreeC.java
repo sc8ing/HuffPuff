@@ -29,10 +29,16 @@ public class HuffTreeC<T> implements HuffTree<T> {
 		return 0;
 	}
 	public String toString() {
-		if (isLeaf())
-			return new StringBuilder("{" + getSymbol() + ", " + getWeight() + "}").toString();
+		return toString(1);
+	}
+	private String toString(int indent) {
+		String s = String.format("{%s, %d}", getSymbol(), getWeight());
+		if (isLeaf()) return s;
 
-		return new StringBuilder("{" + "[inner node], " + getWeight() +
-								 "L(" + getLeft() + ") R(" + getRight() + ")").toString();
+		String space = "";
+		for (int i=0; i<=indent; i++) space += "  ";
+		String left = getLeft().toString().replaceAll("(?m)^", space).trim();
+		String right = getRight().toString().replaceAll("(?m)^", space).trim();
+		return s + String.format("\nL(%s)\nR(%s)", left, right);
 	}
 }
