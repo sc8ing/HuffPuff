@@ -1,5 +1,5 @@
 # Huff Puff
-Basic file compressor/decompressor using the Huffman algorithm. Done with a partner for CS II class.
+Basic file compressor/decompressor using the Huffman algorithm. Note the decompressor (Puff) is not in this repo.
 
 ## Usage:
 
